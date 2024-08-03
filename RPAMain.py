@@ -4,8 +4,11 @@ from selenium.webdriver.common.keys import Keys
 from datetime import datetime
 import time
 
-sDate = str(datetime.now().date())
+import pandas as pd
 
+sDate = str(datetime.now().date()).replace('-', '')
+print(sDate)
+'''
 options = webdriver.ChromeOptions()
 options.add_argument("--start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
@@ -34,3 +37,11 @@ time.sleep(3)
 driver.find_element(By.XPATH, '//*[@id="searchContentDiv"]/div[1]/a[2]/span').click()
 time.sleep(10)
 
+'''
+#엑셀 파일 읽어서 매매기준율 읽어오기
+fileName = "C:/Users/LEE/Downloads/환율변동조회_" + sDate + ".xls"
+print(fileName)
+
+df = pd.read_excel(fileName, usecols=[7], header=2)
+exchange_usa = str(df.iat[1,0])
+print(exchange_usa)
